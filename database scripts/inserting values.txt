@@ -1,0 +1,37 @@
+INSERT INTO CATEGORIES (title)
+VALUES 'Thinking','Driving','Arcade','Simulation','Action','Sports','Shooting','Fighting','Sand-box','Role-play','Horror','Idle','Exploration','Other';
+
+/*TEST VALUES*/
+INSERT INTO GAMES (title,description,play_count,rating,unlisted,resource_id, publish_date)
+VALUES
+    ('Centipede','Move the centipede using the arrow keys to collect as many points as possible. Don't go off the screen or bite yourself!', 9999, 100, 'F','centipede', '2022-04-07'),
+    ('Defender','Shoot the incoming asteroid and do not let them touch or pass you by. The further you go the harder it gets. How long can you survive?', 324, 75, 'F','defender','2022-04-03'),
+    ('Rain of code','Mr Aaaanderson!! We've missed you...', 9134, 50, 'F','rain_of_code', '2022-04-03'),
+    ('Twenty one','Get a hand of total cards of closer to 21 than the bot without going over 21. Do you feel lucky?', 932, 25, 'F','twenty_one', '2022-04-03'),
+    ('Collision detection','A simple line intersection algorithm. Useful in collision detection! Grab one of the green handles and make the lines cross.', 346, 10, 'F','collision_detection', '2022-04-03'),
+    ('TEST#6','Some basic description.', 50, 0, 'F','game_test', '2022-04-02'),
+    ('TEST#7','Some basic description.', 149, 80, 'F','game_test', '2022-04-02'),
+    ('TEST#8','Some basic description.', 5432, 45, 'F','game_test', '2022-04-02'),
+    ('TEST#9','Some basic description.', 6532, 90, 'T','game_test', '2022-04-02'),
+    ('TEST#10','Some basic description.', 2100, 1, 'T','game_test', '2022-04-02'),
+    ('TEST#11','Some basic description.', 777, 90, 'F','game_test', '2022-04-02');
+
+INSERT INTO GAME_CATEGORIES (game_id, category_id) VALUES
+    (4,2),
+    (4,4),
+    (5,1),
+    (5,2),
+    (6,3),
+    (6,4),
+    (7,1),
+    (7,4),
+    (8,3),
+    (8,1),
+    (9,1),
+    (9,4),
+    (10,1),
+    (10,14),
+    (11,14);
+
+INSERT INTO WEEKLY_FEATURED_GAMES (game_id) VALUES 1,2,3;
+INSERT INTO WEEKLY_POPULAR_GAMES (game_id) VALUES 4,5,6;
