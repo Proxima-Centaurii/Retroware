@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <title>RETROWARE - Sign up</title>
+        
+        <h:outputStylesheet name="styles/general.css"/>
+    </h:head>
+    
+    <h:body>
+        <h:graphicImage a:id="bgImage" value="resources/media/website_default/bgImage.jpg" />
+        <div class="main">
+
+            <h1 id="title">REGISTER</h1>
+
+            <!-- Main content -->
+            <div class="center-horizontal content" style="max-width: 275px; padding: 5px;">
+                <h:form a:autocomplete="off" a:name="signupForm" onsubmit="return false">
+                    <!--EMAIL INPUT-->
+                    <h:outputLabel for="email" value="Email"/>
+                    <h:inputText id="email" value="#{registerForm.email}" maxlength="90" autocomplete="off"
+                                 validator="#{registerForm.validateEmail}">
+                        <f:ajax event="blur" render="email-message" />
+                    </h:inputText>
+                    <h:message id="email-message" for="email" class="errMsg"/>
+
+
+                    <!--USERNAME INPUT + USERNAME INFO-->
+                    <h:outputLabel for="username" value="Username"/>
+                    <h:inputText id="username" value="#{registerForm.username}" autocomplete="off" maxlength="25"
+                                 validator="#{registerForm.validateUsername}">
+                        <f:ajax event="blur" render="username-message" />
+                    </h:inputText>
+                    <h:message id="username-message" for="username" class="errMsg" />
+
+                    <p class="small">Only letters and numbers allowed.</p>
+
+                    <!--PASSWORD INPUT + PASSWORD INFO-->
+                    <h:outputLabel for="password" value="Password" />
+                    <h:inputSecret id="password" value="#{registerForm.password}" autocomplete="off"
+                                   validator="#{registerForm.validatePassword}">
+                        <f:ajax event="blur" render="password-message" />
+                    </h:inputSecret>
+                    <h:message id="password-message" for="password" class="errMsg" />
+
+                    <p class="small">Password must:<br/>
+                        <ul class="pwdPrompt">
+                            <li>have a mix of upper case and lower case letters</li>
+                            <li>have at least 1 digit</li>
+                            <li>be at least 8 characters long</li>
+                        </ul>
+                    </p>
+
+
+                    <!--PASSWORD CONFIRMATION-->
+                    <h:outputLabel for="confirm_password" value="Confirm password" />
+                    <h:inputSecret id="confirm_password" value="#{registerForm.password_confirm}" autocomplete="off" 
+                                   validator="#{registerForm.validateConfirmPassword}">
+                        <f:ajax event="blur" render="password-confirm-message" />
+                    </h:inputSecret>
+                    <h:message id="password-confirm-message" for="confirm_password" styleClass="errMsg" />
+
+                    <!--SUBMIT BUTTON-->
+                    <h:commandButton immediate="false" class="highlightBtn" value="Register" action="#{registerForm.submitForm()}">
+                        <f:ajax />
+                    </h:commandButton>
+                </h:form>
+            </div>
+        </div>
+        
+        <footer>
+            <p class="center-horizontal"><h:link class="center-horizontal" outcome="license.xhtml">Click here to view license</h:link></p>
+            <p class="center-horizontal">"Monoton" font - Copyright (c) 2021, Vernon Adams (<a href="www.sansoxygen.com">www.sansoxygen.com</a>).</p>
+            <p class="center-horizontal">"Rubik" font - Copyright (c) 2021, Meir Sadan (<a href="www.meirsadan.com">www.meirsadan.com</a>), Hubert and Fischer, Cyreal.</p>
+            <div class="center-horizontal">
+                <img class="human-readable" src="resources/media/website_default/ofl-human-readable.png"/>
+            </div>
+        </footer>
+        
+        <!--h:outputScript name="scripts/signup.js" /-->
+    </h:body>
+</html>

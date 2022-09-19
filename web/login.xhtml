@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <title>RETROWARE - Log in</title>
+        
+        <h:outputStylesheet name="styles/general.css"/>
+    </h:head>
+    
+    <h:body>
+        <h:graphicImage a:id="bgImage" value="resources/media/website_default/bgImage.jpg" />
+        <div class="main">
+
+            <!-- This will be the status bar -->
+
+            <h1 id="title">LOG IN</h1>
+
+            <!-- Main content -->
+            <div class="center-horizontal content" style="max-width: 275px; padding: 5px;">
+                <f:ajax render="message">
+                    <h:form a:autocomplete="off">
+                        <h:outputLabel for="username">Username</h:outputLabel>
+                        <h:inputText id="username" value="#{userAgent.login_username}"></h:inputText>
+	
+                        <h:outputLabel for="password">Password</h:outputLabel>
+                        <h:inputSecret id="password" value="#{userAgent.login_password}"></h:inputSecret>
+		
+                        <h:outputText id="message" value="#{userAgent.fail_reason}" class="errMsg" style="display: #{(userAgent.loginFailed)?'block':'none'};"></h:outputText>
+                    
+                        <h:commandButton id="submit" immediate="false" class="highlightBtn" value="Log in" action="#{userAgent.logIn()}">
+                        </h:commandButton>
+                    </h:form>
+                </f:ajax>
+                <p class="center-horizontal small">
+                    Don't have an account? 
+                    <h:link style="color: #f07aff;" outcome="register.xhtml">Sign up!</h:link>
+                </p>
+            </div>
+        </div>
+        
+        <footer>
+            <p class="center-horizontal"><h:link class="center-horizontal" outcome="license.xhtml">Click here to view license</h:link></p>
+            <p class="center-horizontal">"Monoton" font - Copyright (c) 2021, Vernon Adams (<a href="www.sansoxygen.com">www.sansoxygen.com</a>).</p>
+            <p class="center-horizontal">"Rubik" font - Copyright (c) 2021, Meir Sadan (<a href="www.meirsadan.com">www.meirsadan.com</a>), Hubert and Fischer, Cyreal.</p>
+            <div class="center-horizontal">
+                <img class="human-readable" src="resources/media/website_default/ofl-human-readable.png"/>
+            </div>
+        </footer>
+        
+    </h:body>
+</html>

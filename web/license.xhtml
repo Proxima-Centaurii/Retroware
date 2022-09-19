@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RETROWARE - License</title>
+
+        <h:outputStylesheet name="styles/general.css"/>
+
+    </h:head>
+
+    <h:body>
+        <h:graphicImage a:id="bgImage" value="resources/media/website_default/bgImage.jpg"/>
+
+        <!--NAVIGATION BAR-->
+        <div class="main-nav">
+            <nav>
+                <!--Centering container-->
+                <div class="center-horizontal" style="width: 78%;">
+                    <!--LEFT SIDE of navigation bar-->
+                    <h:form class="search-bar" onkeypress="if (event.keyCode === 13) { document.getElementById('general_search').click(); return false; }" style="float:left; width: 60%">
+                        <h:inputText value="#{searchRequest.search_string}" a:placeholder="Search games..."  maxlength="25" autocomplete="off">
+                        </h:inputText>
+                        <h:commandLink a:id="general_search" class="highlightBtn buttonLink" action="#{searchRequest.startSearch()}">
+                            <!--Categories SVG icon-->
+                            <svg width="21" height="21" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </h:commandLink>
+                    </h:form>
+
+                    <!--RIGHT SIDE of navigation bar-->
+                    <div style="float: right; width: 40%;">
+                        <div style="float: right; margin: 8px 0px 0px 5px;">
+                            <h:link class="highlightBtn buttonLink" outcome="categories.xhtml">
+                                <p>Categories</p>
+                                <svg class="minimal-icon" width="21" height="21" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z"/>
+                                </svg>
+                            </h:link>
+                            
+                            <c:choose>
+                                <c:when test ="#{userAgent.loggedIn}" >
+                                    <!--LOGGED IN BUTTONS-->
+                                    <div style="display: #{(userAgent.loggedIn)?'inline-block':'none'}">
+                                        <h:form style="display: inline-block" >
+                                            <h:commandLink class="highlightBtn buttonLink" action="#{userAgent.logOut()}">
+                                                <p>Log out</p>
+                                                <svg class="minimal-icon" width="21" height="21" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                                    <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                                                </svg>
+                                            </h:commandLink>   
+                                            
+                                            <h:link outcome="#{userAgent.toUserProfile()}" style="margin-left: 5px;">
+                                                <h:graphicImage class="profile-picture" value="/userProfileImage?uid=#{userAgent.user_id}" />
+                                            </h:link>
+                                        </h:form>
+                                    </div>
+                                </c:when>
+                                
+                                <!--NOT LOGGED IN-->
+                                <c:otherwise>
+                                    <div style="display: #{(userAgent.loggedIn)?'none':'inline-block'}">
+                                        <h:link class="highlightBtn buttonLink" outcome="login.xhtml">
+                                            <p>Log in</p>
+                                            <!--Log in SVG icon-->
+                                            <svg class="minimal-icon" width="21" height="21" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                            </svg>
+                                        </h:link>
+                                            
+                                        <h:link class="highlightBtn buttonLink" outcome="register.xhtml" style="margin-left: 5px;">
+                                            <p>Register</p>
+                                            <!--Register SVG icon-->
+                                            <svg class="minimal-icon" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                            </svg>
+                                        </h:link>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>     
+
+                        </div>
+                    </div><!-- END of RIGHT SIDE of navigation bar -->
+                </div> <!--END of centering container -->
+            </nav>	
+        </div>
+
+        <div class="main">
+
+            <h1 id="title">LICENSE</h1>
+
+            <!-- Main content -->
+            <div class="center-horizontal content" style="padding: 5px; width: 80%;">
+		<p>NOTICE: "Monoton" and "Rubik" are the main fonts used in this website, both licensed under SIL Open Font License</p>
+		<p>This Font Software is licensed under the SIL Open Font License, Version 1.1.</p>
+		<p>This license is copied below, and is also available with a FAQ at: <a href="http://scripts.sil.org/OFL">http://scripts.sil.org/OFL</a></p>
+		<iframe src="resources/license.txt" style="width: 100%; height: 350px; background-color: #f07aff; border-radius: 0px 0px 15px 15px; border-width: 0;"></iframe>
+            </div>
+        </div>
+
+        <footer>
+            <p class="center-horizontal">"Monoton" font - Copyright (c) 2021, Vernon Adams (<a href="www.sansoxygen.com">www.sansoxygen.com</a>).</p>
+            <p class="center-horizontal">"Rubik" font - Copyright (c) 2021, Meir Sadan (<a href="www.meirsadan.com">www.meirsadan.com</a>), Hubert and Fischer, Cyreal.</p>
+            <div class="center-horizontal">
+		<img class="human-readable" src="resources/media/website_default/ofl-human-readable.png"/>
+            </div>
+        </footer>
+
+    </h:body>
+
+    
+</html>

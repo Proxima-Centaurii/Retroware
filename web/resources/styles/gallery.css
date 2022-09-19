@@ -1,0 +1,34 @@
+#thumbnail {
+	width:100%;
+	height: auto;
+	min-width:30%;
+}
+
+a.projectLink{
+	width: 100%;
+	padding: 10px;
+}
+
+li.emptySpot{
+	min-width: 200px;
+	min-height: 200px;
+	min-width:30%;
+}
+
+.projectList{	
+	list-style-type: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	margin: 0;
+	padding: 0;
+}
+
+.projectItem{
+	flex: 1 1 40%;
+	padding-right: 10px;
+	padding-left: 5px;
+	padding-bottom: 10px;
+	padding-top: 5px;
+	max-width: 48%;
+}

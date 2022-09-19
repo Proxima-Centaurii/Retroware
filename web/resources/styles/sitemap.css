@@ -1,0 +1,39 @@
+/*Overwrites the 'fit-content' width of the 'center-horizontal' class*/
+#mapContainer{
+	overflow: auto;
+}
+
+a {
+	padding: 5px;
+	font-size: 12px;
+}
+td{
+	width: 20%;
+	height: 50px;
+}
+
+svg {
+	height: 100%;
+	width: 100%;
+	padding-top: 5px;
+}
+
+table{
+	background: #b420c7;
+	table-layout: fixed;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	min-width: 600px;
+}
+
+ul{
+	list-style-type: none;
+	display: block;
+	padding:0;
+	margin:0;
+}
+ 
+li{
+	margin-bottom: 5px;
+}

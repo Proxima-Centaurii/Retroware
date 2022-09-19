@@ -1,0 +1,93 @@
+
+@media screen and (max-width: 966px){
+	#category-pane {
+		flex: 1 1 auto !important;
+	}
+	
+	.category-list {
+		display: inline-flex;
+		gap: 5px;
+	}
+}
+
+ul.category-list {
+	list-style-type: none;
+        display: contents;
+}
+ul.category-list  li {
+	margin: 5px;
+}
+
+ul.category-list a{
+    display: list-item;
+    text-align: center;
+    margin: 5px;
+}
+
+div.search-controls {
+	display: inline-flex;
+	width: 100%;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 5px;
+	justify-content: space-between;
+}
+
+ul.game-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    /*padding-bottom: 5px;*/
+    padding-inline: 10px;
+}
+
+/*List item of 'game-list' */
+ul.game-list li{
+    margin-bottom: 10px;
+}
+
+ul.game-list a{
+    padding: 0px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+ul.game-list img{
+    width: 100%;
+    height: 128px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+ul.game-list p.description{
+    font-size: 12px;
+}
+
+#categories-submenu ul.game-list .highlightBtn{
+	padding: 5px;
+}
+
+span.very-bad{color: red;}
+span.bad{color: orange;}
+span.good{color: yellow;}
+span.very-good{color: lime;}
+
+span.very-bad::after{content: 'Very Bad';}
+span.bad::after{content: 'Bad';}
+span.good::after{content: 'Good';}
+span.very-good::after{content: 'Very Good';}
+
+.multipane-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    /*gap: 5px;*/
+}
+
+.multipane-flex .pane {
+    flex: 1 1 463px; /* Two panes will stay on the same line until the window width is below 1280*/
+}

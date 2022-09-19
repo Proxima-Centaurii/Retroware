@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <f:metadata>
+            <f:viewParam name="uid" value="#{userPage.target_user}"/>
+        </f:metadata>
+        
+        <title>RETROWARE</title>
+        
+        <h:outputStylesheet name="styles/general.css"/>
+        <h:outputStylesheet name="styles/lists.css" />
+    </h:head>
+    
+    <h:body>
+        <h:graphicImage a:id="bgImage" value="resources/media/website_default/bgImage.jpg" />
+        
+        <!--NAVIGATION BAR-->
+        <div class="main-nav">
+            <nav>
+                <!--Centering container-->
+                <div class="center-horizontal" style="width: 78%;">
+                    <!--LEFT SIDE of navigation bar-->
+                    <h:form class="search-bar" onkeypress="if (event.keyCode === 13) { document.getElementById('general_search').click(); return false; }" style="float:left; width: 60%">
+                        <h:inputText value="#{searchRequest.search_string}" a:placeholder="Search games..."  maxlength="25" autocomplete="off">
+                        </h:inputText>
+                        <h:commandLink a:id="general_search" class="highlightBtn buttonLink" action="#{searchRequest.startSearch()}">
+                            <!--Categories SVG icon-->
+                            <svg width="21" height="21" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </h:commandLink>
+                    </h:form>
+
+                    <!--RIGHT SIDE of navigation bar-->
+                    <div style="float: right; width: 40%;">
+                        <div style="float: right; margin: 8px 0px 0px 5px;">
+                            <h:link class="highlightBtn buttonLink" outcome="categories.xhtml">
+                                <p>Categories</p>
+                                <svg class="minimal-icon" width="21" height="21" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z"/>
+                                </svg>
+                            </h:link>
+                            
+                            <c:choose>
+                                <c:when test ="#{userAgent.loggedIn}" >
+                                    <!--LOGGED IN BUTTONS-->
+                                    <div style="display: #{(userAgent.loggedIn)?'inline-block':'none'}">
+                                        <h:form style="display: inline-block" >
+                                            <h:commandLink class="highlightBtn buttonLink" action="#{userAgent.logOut()}">
+                                                <p>Log out</p>
+                                                <svg class="minimal-icon" width="21" height="21" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                                    <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                                                </svg>
+                                            </h:commandLink>   
+                                            
+                                            <h:link outcome="#{userAgent.toUserProfile()}" style="margin-left: 5px;">
+                                                <h:graphicImage id="navbar-profile-picture" class="profile-picture" value="/userProfileImage?uid=#{userAgent.user_id}" />
+                                            </h:link>
+                                        </h:form>
+                                    </div>
+                                </c:when>
+                                
+                                <!--NOT LOGGED IN-->
+                                <c:otherwise>
+                                    <div style="display: #{(userAgent.loggedIn)?'none':'inline-block'}">
+                                        <h:link class="highlightBtn buttonLink" outcome="login.xhtml">
+                                            <p>Log in</p>
+                                            <!--Log in SVG icon-->
+                                            <svg class="minimal-icon" width="21" height="21" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                            </svg>
+                                        </h:link>
+                                            
+                                        <h:link class="highlightBtn buttonLink" outcome="register.xhtml" style="margin-left: 5px;">
+                                            <p>Register</p>
+                                            <!--Register SVG icon-->
+                                            <svg class="minimal-icon" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                            </svg>
+                                        </h:link>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>     
+
+                        </div>
+                    </div><!-- END of RIGHT SIDE of navigation bar -->
+                </div> <!--END of centering container -->
+            </nav>	
+        </div>
+        
+        <div class="main">
+            
+            <c:if test="#{(userAgent.user_id == userPage.target_user)? 'true' : 'false' }">
+                <!--ACCOUNT SETTINGS MODAL BOX-->
+                <div id="account-settings-modal" class="modal-background">
+                    <div class="content modal-content-space">
+                        <span class="close-modal" id="close-account-modal">x</span>
+                        <h2 class="center-horizontal">Account settings</h2>
+                        <h:form>
+                            <h:commandButton class="highlightBtn" style="width: fit-content;" value="Delete account" action="#{userAgent.logOut()}">
+                                <f:actionListener binding="#{userPage.deleteAccount()}" />
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
+                
+                <!--UPLOAD PROFILE PICURE MODAL BOX-->
+                <div id="profile-picture-modal" class="modal-background">
+                    <div class="content modal-content-space">
+                        <span class="close-modal" id="close-profile-modal">x</span>
+                        <h2 class="center-horizontal">Upload new profile picture</h2>
+                        <h:form enctype="multipart/form-data">
+                            <p>You can only upload 'jpg' files.</p>
+                            <h:inputFile id="uploader" value="#{userPage.profile_upload}" validator="#{userPage.validateProfilePicture}">
+                                <f:ajax listener="#{userPage.processNewProfilePicture()}" render="image-upload-message" onevent="location.reload()" />
+                            </h:inputFile>
+                            <br/>
+                            <h:message id="image-upload-message" for="uploader" style="errMsg" />
+                        </h:form>
+                    </div>
+                </div>
+            </c:if>  
+
+            <h1 id="title">RETROWARE</h1>
+
+            <!-- USER HEADER -->
+            <div class="center-horizontal content">
+                <div class="user-header" style="display: flex;padding: 5px;">
+                    <!--PROFILE PICTURE-->
+                    <div style="width: 128px;margin-right: 5px;">
+                        <h:graphicImage id="header-profile-picture" class="profile-picture" value="/userProfileImage?uid=#{userPage.target_user}" />
+                        <!--EDIT PROFILE PICTURE ICON-->
+                        <c:if test="#{(userAgent.user_id == userPage.target_user)? 'true' : 'false' }">
+                            <br/>
+                            
+                                <button id="edit-profile-picture" class="highlightBtn buttonLink" style="width:  100%;margin-bottom: 8px;">
+                                    <p class="small">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                            <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                                        </svg>
+                                    Edit picture
+                                    </p>
+                                </button>
+                            
+                        </c:if>
+                    </div>
+
+                    <!--USER DETAILS (username, description, join date)-->
+                    <div style="width: 100%;">
+                        <p>#{userPage.user_data.username}
+                            <!--SETTINGS ICON-->
+                            <c:if test="#{(userAgent.user_id == userPage.target_user)? 'true' : 'false' }">
+                                <svg id="account-settings-button" class="icon-button" width="24" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"></path>
+                                </svg>
+                            </c:if>
+                            <span style="color: salmon;"> - Joined on : #{userPage.user_data.joinDateDisplay}</span>
+                        </p>
+                        <h:form>
+                            <h:inputTextarea id="description-box" value="#{userPage.description}" disabled="#{(userAgent.user_id == userPage.target_user)? 'false' : 'true' }" 
+                                         class="user-comment" a:maxlength="150" a:placeholder="About you." style="height: 95px;"/>
+                        <!--EDIT DESCRIPTION BUTTON-->
+                        <c:if test="#{(userAgent.user_id == userPage.target_user)? 'true' : 'false' }">
+                            
+                                <f:ajax execute="description-box" render="description-box">
+                                <h:commandLink rendered="#{(userAgent.user_id == userPage.target_user)? 'true' : 'false' }" class="highlightBtn buttonLink">
+                                    <p class="small">
+                                        <svg id="edit-description" class="icon-button" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                        </svg>
+                                    Update description
+                                    </p>
+                                </h:commandLink>
+                                </f:ajax>
+                        </c:if>
+                        </h:form>
+                    </div>
+                </div><!--USER HEADER INNER CONTENT-->
+            </div><!--USER HEADER END-->
+
+            <!--LIKED GAMES PANEL-->
+            <div class="center-horizontal content">
+                <h2 class="center-horizontal">Liked games</h2>
+
+                <h:form>
+		<ul class="center-horizontal game-list" style="justify-content: center;">
+                    <c:choose>
+                        <!--LOAD LIKED GAMES IF THERE ARE ANY-->
+                        <c:when test="#{userPage.hasLikedGames()}">
+                            <c:forEach var="game" items="#{userPage.getLikedGames()}" varStatus="entry">
+                                <li>
+                                    <h:commandLink class="highlightBtn buttonLink" action="#{userPage.enterGame()}">
+                                        <f:setPropertyActionListener target="#{userPage.selected_game_index}" value="${entry.index}" />
+                                        <h:graphicImage url="resources/media/game_thumbnails/#{game.resource_id}.png" alt="#{game.title}"/>
+                                        <p class="center-horizontal">#{game.title}</p>
+                                        <p class="description center-horizontal">Rating: <span class="game-rating-label" value="#{game.rating}"/></p>
+                                        <p class="description center-horizontal">#{game.play_count} plays</p>
+                                    </h:commandLink>
+                                </li>
+                            </c:forEach>
+                        </c:when>
+                        
+                        <!--DISPLAY A MESSAGE IF THE LIKED GAMES LIST IS EMPTY-->
+                        <c:otherwise>
+                            <li>
+                                <p>It's empty in here...🌵&#127797;</p>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+                </h:form>
+            </div>
+
+        </div>
+        
+        <footer>
+            <p class="center-horizontal"><h:link class="center-horizontal" outcome="license.xhtml">Click here to view license</h:link></p>
+            <p class="center-horizontal">"Monoton" font - Copyright (c) 2021, Vernon Adams (<a href="www.sansoxygen.com">www.sansoxygen.com</a>).</p>
+            <p class="center-horizontal">"Rubik" font - Copyright (c) 2021, Meir Sadan (<a href="www.meirsadan.com">www.meirsadan.com</a>), Hubert and Fischer, Cyreal.</p>
+            <div class="center-horizontal">
+                <img class="human-readable" src="resources/media/website_default/ofl-human-readable.png"/>
+            </div>
+        </footer>
+        
+        <h:outputScript name="scripts/ratings.js" />
+        <h:outputScript name="scripts/user-profile-functions.js" />
+    </h:body>
+</html>
